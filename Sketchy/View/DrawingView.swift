@@ -10,11 +10,12 @@ import PencilKit
 
 struct DrawingView: View {
     @State private var canvasView = PKCanvasView()
+    @State var rendition: Rendition?
 
     var body: some View {
         NavigationStack {
             ZStack {
-                CanvasView(canvasView: $canvasView)
+                CanvasView(canvasView: $canvasView, onSaved: saveDrawing)
                     .padding(20)
                     .background(.thinMaterial)
 
@@ -43,16 +44,12 @@ struct DrawingView: View {
                         Image(systemName: "square.and.arrow.up")
                     }
 
-                    Button {
-
-                    } label: {
+                    Button(action: restoreDrawing) {
                         Image(systemName: "arrow.uturn.left")
                     }
 
-                    Button {
-                        deleteDrawing()
-                    } label: {
-                        Image(systemName: "trash")
+                    Button(action: deleteDrawing) {
+                       Image(systemName: "trash")
                     }
                 }
             }
@@ -61,7 +58,12 @@ struct DrawingView: View {
     }
 
     func saveDrawing() {
-        //
+        let image = canvasView.drawing.image(from: canvasView.bounds,
+                                             scale: UIScreen.main.scale)
+        let rendition = Rendition(title: "Best Drawing",
+                                  drawing: canvasView.drawing,
+                                  image: image)
+        self.rendition = rendition
     }
 
     func deleteDrawing() {
@@ -69,7 +71,9 @@ struct DrawingView: View {
     }
 
     func restoreDrawing() {
-        //
+        if let rendition = rendition {
+            canvasView.drawing = rendition.drawing
+        }
     }
 
     func shareDrawing() {
