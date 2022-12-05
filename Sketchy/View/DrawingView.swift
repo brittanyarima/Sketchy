@@ -11,6 +11,7 @@ import PencilKit
 struct DrawingView: View {
     @State private var canvasView = PKCanvasView()
     @State var rendition: Rendition?
+    @State private var isSharing = false
 
     var body: some View {
         NavigationStack {
@@ -38,9 +39,7 @@ struct DrawingView: View {
                 }
 
                 HStack {
-                    Button {
-
-                    } label: {
+                    Button(action: shareDrawing) {
                         Image(systemName: "square.and.arrow.up")
                     }
 
@@ -54,6 +53,10 @@ struct DrawingView: View {
                 }
             }
             .tint(.indigo)
+            .sheet(isPresented: $isSharing) {
+                ShareSheet(activityItems: [rendition?.image as Any],
+                           excludeActivityTypes: [])
+            }
         }
     }
 
@@ -77,9 +80,10 @@ struct DrawingView: View {
     }
 
     func shareDrawing() {
-        //
+        if rendition != nil {
+            isSharing = true
+        }
     }
-
 }
 
 struct DrawingView_Previews: PreviewProvider {
