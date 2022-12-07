@@ -13,36 +13,19 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             VStack {
+                TitleView()
+
                 LazyVGrid(columns: columns) {
                     ForEach(0..<5) { _ in
                         Rectangle()
                             .frame(width: 250, height: 250)
                             .padding()
+                            .foregroundColor(.indigo)
                     }
                     .padding()
                 }
                 Spacer()
-
             }
-            .navigationTitle("🎨 Sketch")
-            .toolbar {
-                HStack {
-                    Button {
-                        // start new sketch
-                    } label: {
-                        Image(systemName: "plus")
-                    }
-
-                    Button {
-                        // show settings screen
-                    } label: {
-                        Image(systemName: "gear")
-                    }
-                }
-                .font(.title2)
-                .padding(.top, 100)
-            }
-
         }
     }
 }
@@ -50,5 +33,34 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
+    }
+}
+
+fileprivate struct TitleView: View {
+    var body: some View {
+        HStack {
+            Text("🎨 Sketch")
+                .font(.system(size: 42))
+                .bold()
+
+            Spacer()
+
+            HStack {
+                NavigationLink {
+                    DrawingView()
+                } label: {
+                    Image(systemName: "plus")
+                }
+                .padding()
+
+                Button {
+                    // show settings
+                } label: {
+                    Image(systemName: "gear")
+                }
+            }
+            .font(.title)
+        }
+        .padding()
     }
 }

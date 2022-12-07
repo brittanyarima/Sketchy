@@ -11,7 +11,7 @@ import SwiftUI
 struct SketchyApp: App {
     var body: some Scene {
         WindowGroup {
-            DrawingView()
+            HomeView()
         }
     }
 }

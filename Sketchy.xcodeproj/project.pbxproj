@@ -89,8 +89,8 @@
 		186C7FAB293D87CF0001483B /* View */ = {
 			isa = PBXGroup;
 			children = (
-				1845D913293D6C55004420B8 /* DrawingView.swift */,
 				1815B5C029413C110062F518 /* HomeView.swift */,
+				1845D913293D6C55004420B8 /* DrawingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
