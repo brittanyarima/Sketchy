@@ -19,9 +19,8 @@ struct DrawingView: View {
                 CanvasView(canvasView: $canvasView, onSaved: saveDrawing)
                     .padding(20)
                     .background(.thinMaterial)
-
             }
-            .navigationTitle("🎨Sketch")
+            .navigationTitle("🎨Sketchy")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 HStack {
