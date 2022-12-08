@@ -21,26 +21,15 @@ struct DrawingView: View {
                     .background(.thinMaterial)
 
             }
-            .navigationTitle("Sketchy")
+            .navigationTitle("🎨Sketch")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 HStack {
-                    Button {
-                        //
-                    } label: {
-                        Image(systemName: "plus")
-                    }
-
-                    Button {
-
-                    } label: {
-                        Image(systemName: "eye")
-                    }
-                }
-
-                HStack {
                     Button(action: shareDrawing) {
                         Image(systemName: "square.and.arrow.up")
+                    }
+                    .sheet(isPresented: $isSharing) {
+                        ShareSheet(activityItems: [rendition?.image as Any], excludedActivityTypes: [])
                     }
 
                     Button(action: restoreDrawing) {
@@ -53,17 +42,13 @@ struct DrawingView: View {
                 }
             }
             .tint(.indigo)
-            .sheet(isPresented: $isSharing) {
-                ShareSheet(activityItems: [rendition?.image as Any],
-                           excludeActivityTypes: [])
-            }
         }
     }
 
     func saveDrawing() {
         let image = canvasView.drawing.image(from: canvasView.bounds,
                                              scale: UIScreen.main.scale)
-        let rendition = Rendition(title: "Best Drawing",
+        let rendition = Rendition(id: UUID(), title: "Best Drawing",
                                   drawing: canvasView.drawing,
                                   image: image)
         self.rendition = rendition
